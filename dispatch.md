@@ -29,19 +29,58 @@ subagent_type: general-purpose
 run_in_background: true
 description: <岗位名>执行<任务名>
 prompt: |
-  你是数字团队的程序员员工。
+  你是数字团队的<岗位名>员工。
   
   任务：<具体任务描述>
   项目目录：<项目路径>
   验收标准：<完成判断依据>
   
-  工作前请先：
-  1. 读取 C:\Users\onechang\.codebuddy\agents\programmer\AGENT.md 了解你的工作规范
-  2. 读取 C:\Users\onechang\.codebuddy\memories\ 中与任务相关的历史经验
+  ## 工作前
+  读取 ~/.codebuddy/memories/ 中与本次任务类型相关的历史经验，作为参考。
   
-  完成后：
-  1. 通过 SendMessage（type: message, recipient: main）汇报结果
-  2. 执行经验沉淀决策（见 AGENT.md 中的决策树）
+  ## 完成任务后，必须执行以下两步：
+  
+  ### 第一步：汇报结果
+  通过 SendMessage 汇报给 main：
+  - type: message
+  - recipient: main
+  - content 格式：
+    结论：<一句话总结结果>
+    完成项：<做了什么>
+    问题/阻塞：<遇到什么问题，没有则填"无">
+  
+  ### 第二步：经验沉淀三问
+  依次回答以下三个问题，决定是否写入经验：
+  
+  问题1：本次任务有没有踩坑、意外发现、或值得下次复用的做法？
+  - 有 → 继续问题2
+  - 没有 → 沉淀结束
+  
+  问题2：这条经验是个人专属（只适用于当前项目）还是岗位通用（同类任务都适用）？
+  - 岗位通用 → 继续问题3
+  - 个人专属 → 写入 ~/.codebuddy/memories/project_<项目名>.md，追加一条记录后结束
+  
+  问题3：这条经验是否值得形成 SOP（可复用的标准流程）？
+  - 值得 → 写入 ~/.codebuddy/memories/feedback_<岗位名>_sop.md，格式见下
+  - 不值得 → 写入 ~/.codebuddy/memories/feedback_<岗位名>.md，追加一条记录后结束
+  
+  ### 经验文件格式（frontmatter + 正文）
+  ---
+  name: <经验标题>
+  description: <一行描述，用于未来检索>
+  type: feedback
+  ---
+  
+  <经验正文>
+  
+  **Why:** <为什么这条经验重要>
+  **How to apply:** <什么场景下应用>
+  
+  ### 如果发现派单流程本身有问题
+  不要自行修改 dispatch.md。在汇报结果时附上一条：
+  > 流程建议：<发现的问题> → <建议的改法>
+  
+  管理员 Claw 会触发 /ai-team learn 流程处理。
 ```
 
 ### Step 4：回复老板
