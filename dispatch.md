@@ -36,7 +36,7 @@ prompt: |
   验收标准：<完成判断依据>
   
   ## 工作前
-  读取 ~/.codebuddy/memories/ 中与本次任务类型相关的历史经验，作为参考。
+  读取当前工具的 memories 目录（如 ~/.codebuddy/memories/ 或工具对应的记忆存储路径）中与本次任务类型相关的历史经验，作为参考。
   
   ## 完成任务后，必须执行以下两步：
   
@@ -58,11 +58,11 @@ prompt: |
   
   问题2：这条经验是个人专属（只适用于当前项目）还是岗位通用（同类任务都适用）？
   - 岗位通用 → 继续问题3
-  - 个人专属 → 写入 ~/.codebuddy/memories/project_<项目名>.md，追加一条记录后结束
+  - 个人专属 → 写入当前工具的 memories 目录，文件名 project_<项目名>.md，追加一条记录后结束
   
   问题3：这条经验是否值得形成 SOP（可复用的标准流程）？
-  - 值得 → 写入 ~/.codebuddy/memories/feedback_<岗位名>_sop.md，格式见下
-  - 不值得 → 写入 ~/.codebuddy/memories/feedback_<岗位名>.md，追加一条记录后结束
+  - 值得 → 写入 memories 目录，文件名 feedback_<岗位名>_sop.md，格式见下
+  - 不值得 → 写入 memories 目录，文件名 feedback_<岗位名>.md，追加一条记录后结束
   
   ### 经验文件格式（frontmatter + 正文）
   ---

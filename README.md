@@ -2,7 +2,7 @@
 
 一套基于 Markdown 的 AI 团队调度方案，通过管理员 **Claw** 协调一组专业员工 Agent，帮你派单、追踪任务、管理数字团队。
 
-适用于任何支持自定义 slash command / skill 的 AI 编程工具，如 Claude、Cursor、CodeBuddy、Continue 等。
+适用于任何支持自定义 slash command / prompt 的 AI 编程工具，如 Cursor、Windsurf、Continue、Cline 等。
 
 ## 功能
 
@@ -53,13 +53,14 @@
 
 ## 安装
 
-将本仓库文件放入你所用工具对应的 skill/command 目录，例如：
+将本仓库文件放入你所用工具对应的 custom command / prompt 目录：
 
 | 工具 | 目录 |
 |------|------|
-| CodeBuddy Code | `~/.codebuddy/skills/ai-team/` |
-| Cursor | `.cursor/rules/` 或自定义 slash command 目录 |
+| Cursor | `.cursor/rules/` |
+| Windsurf | `.windsurf/rules/` |
 | Continue | `.continue/prompts/` |
+| Cline | `.clinerules/` |
 
 其他工具参考各自文档，将 `.md` 文件注册为自定义命令即可。
 
